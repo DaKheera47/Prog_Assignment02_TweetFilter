@@ -13,6 +13,9 @@ vector<string> split(const string& str, const string& delimiter);
 string toLower(string str);
 
 // filter a word by comparing it against a vector of banned strings
-string filterWord(string word, vector<string> bannedWords);
+string filterWord(string word, vector<string>& bannedWords);
+
+// check if a word is banned
+bool isWordBanned(string word, vector<string>& bannedWords);
 
 #endif // !UTILITIES

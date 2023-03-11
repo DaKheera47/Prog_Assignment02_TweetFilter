@@ -5,10 +5,37 @@ TweetSet::TweetSet(vector<string> tweets)
 {
 	m_tweets = tweets;
 }
+TweetSet::TweetSet()
+{
+	m_tweets = {};
+}
+
+// https://www.geeksforgeeks.org/operator-overloading-cpp/
+TweetSet& TweetSet::operator+(TweetSet& other)
+{
+	// Loop over tweets in other and add them to this TweetSet
+	for (const auto& tweet : other.getTweets()) {
+		addTweet(tweet);
+	}
+
+	return *this;
+}
 
 void TweetSet::addTweet(string tweet)
 {
 	m_tweets.push_back(tweet);
+}
+
+void TweetSet::addTweet(vector<string> tweets)
+{
+	for (const auto& tweet : tweets) {
+		addTweet(tweet);
+	}
+}
+
+vector<string> TweetSet::getTweets()
+{
+	return m_tweets;
 }
 
 void TweetSet::filterTweets(vector<string> bannedWords)
@@ -41,4 +68,24 @@ void TweetSet::printFilteredTweets()
 	for (int i = 0; i < m_filteredTweets.size(); i++) {
 		cout << m_filteredTweets[i] << endl;
 	}
+}
+
+int TweetSet::countBannedWords(vector<string> bannedWords)
+{
+	// reset count
+	m_numBannedWords = 0;
+
+	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
+		// split tweet into words
+		vector<string> words = split(m_tweets[tweetIdx], " ");
+
+		for (int wordIdx = 0; wordIdx < words.size(); wordIdx++)
+		{
+			if (isWordBanned(words[wordIdx], bannedWords)) {
+				m_numBannedWords++;
+			}
+		}
+	}
+
+	return m_numBannedWords;
 }

@@ -30,15 +30,35 @@ string toLower(string str) {
 	return str;
 }
 
-string filterWord(string word, vector<string> bannedWords)
+bool isWordBanned(string word, vector<string>& bannedWords)
 {
+	// make word lowercase
+	word = toLower(word);
+
+
+	for (int i = 0; i < bannedWords.size(); i++)
+	{
+		// make banned word lowercase
+		string bannedWord = toLower(bannedWords[i]);
+		bool isBanned = word.find(bannedWord) != string::npos;
+
+		if (word.find(bannedWord) != string::npos)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+string filterWord(string word, vector<string>& bannedWords)
+{
+	// convert word to lowercase
+	string wordInProcess = toLower(word);
+
 	// loop through banned words
 	for (int bannedIdx = 0; bannedIdx < bannedWords.size(); bannedIdx++) {
 		// convert banned word to lowercase
 		string bannedWord = toLower(bannedWords[bannedIdx]);
-
-		// convert word to lowercase
-		string wordInProcess = toLower(word);
 
 		// Find the index of the banned word within the tweet
 		size_t bannedIndex = wordInProcess.find(bannedWord);
