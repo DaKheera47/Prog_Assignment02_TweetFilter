@@ -24,6 +24,7 @@ public:
 	void filterTweets(vector<string> bannedWords);
 	void printFilteredTweets();
 	void printTweets();
+	void SentimentAnalysis(vector<string>& positiveWords, vector<string>& negativeWords);
 	int countBannedWords(vector<string> bannedWords);
 	vector<string> countFrequentWords(int n);
 
@@ -32,7 +33,8 @@ private:
 	vector<string> m_filteredTweets;
 	vector<string> m_frequentWords;
 	int m_numBannedWords;
-	
+	int m_numPositiveWords;
+	int m_numNegativeWords;
 };
 
 #endif // !TWEETSET

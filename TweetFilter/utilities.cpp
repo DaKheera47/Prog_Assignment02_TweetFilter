@@ -30,16 +30,15 @@ string toLower(string str) {
 	return str;
 }
 
-bool isWordBanned(string word, vector<string>& bannedWords)
+bool isWordInVector(string word, vector<string>& searchVector)
 {
 	// make word lowercase
 	word = toLower(word);
 
-
-	for (int i = 0; i < bannedWords.size(); i++)
+	for (int i = 0; i < searchVector.size(); i++)
 	{
 		// make banned word lowercase
-		string bannedWord = toLower(bannedWords[i]);
+		string bannedWord = toLower(searchVector[i]);
 		bool isBanned = word.find(bannedWord) != string::npos;
 
 		if (word.find(bannedWord) != string::npos)

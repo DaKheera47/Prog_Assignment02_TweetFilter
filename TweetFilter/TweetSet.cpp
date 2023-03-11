@@ -14,10 +14,7 @@ TweetSet::TweetSet()
 TweetSet& TweetSet::operator+(TweetSet& other)
 {
 	// Loop over tweets in other and add them to this TweetSet
-	for (const auto& tweet : other.getTweets()) {
-		addTweet(tweet);
-	}
-
+	addTweet(other.getTweets());
 	return *this;
 }
 
@@ -81,7 +78,7 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 
 		for (int wordIdx = 0; wordIdx < words.size(); wordIdx++)
 		{
-			if (isWordBanned(words[wordIdx], bannedWords)) {
+			if (isWordInVector(words[wordIdx], bannedWords)) {
 				m_numBannedWords++;
 			}
 		}
@@ -133,3 +130,37 @@ vector<string> TweetSet::countFrequentWords(int n)
 	return m_frequentWords;
 }
 
+void TweetSet::SentimentAnalysis(vector<string>& positiveWords, vector<string>& negativeWords)
+{
+	// read positive words
+	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
+		// split tweet into words
+		vector<string> words = split(m_tweets[tweetIdx], " ");
+
+		// count the words
+		for (const auto& word : words) {
+			if (isWordInVector(word, positiveWords)) {
+				m_numPositiveWords++;
+			}
+			else if (isWordInVector(word, negativeWords)) {
+				m_numNegativeWords++;
+			}
+		}
+
+		cout << "Positive Words: " << m_numPositiveWords << endl;
+		cout << "Negative Words: " << m_numNegativeWords << endl;
+
+		// calculate sentiment
+		if (m_numPositiveWords > m_numNegativeWords) {
+			cout << "Overall Sentiment: Positive" << endl;
+		}
+		else if (m_numPositiveWords < m_numNegativeWords) {
+			cout << "Overall Sentiment: Negative" << endl;
+		}
+		else {
+			cout << "Overall Sentiment: Neutral" << endl;
+		}
+
+		cout << endl << endl;
+	}
+}

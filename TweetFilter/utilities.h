@@ -16,6 +16,6 @@ string toLower(string str);
 string filterWord(string word, vector<string>& bannedWords);
 
 // check if a word is banned
-bool isWordBanned(string word, vector<string>& bannedWords);
+bool isWordInVector(string word, vector<string>& bannedWords);
 
 #endif // !UTILITIES
