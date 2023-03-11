@@ -40,34 +40,30 @@ int main()
 	allTweets.printTweets();
 	allTweets.filterTweets(bannedWords);
 	allTweets.printFilteredTweets();
-	cout << allTweets.countBannedWords(bannedWords);
+	cout << allTweets.countBannedWords(bannedWords) << endl << endl;
+	allTweets.countFrequentWords(5);
 
-	//// banned words sum
-	//int bannedWordsSum = 0;
+	// filter tweets1
+	tweets1.printTweets();
+	tweets1.filterTweets(bannedWords);
+	tweets1.printFilteredTweets();
+	tweets1.countFrequentWords(5);
 
-	//// filter tweets1
-	//tweets1.printTweets();
-	//tweets1.filterTweets(bannedWords);
-	//tweets1.printFilteredTweets();
-	//bannedWordsSum += tweets1.countBannedWords(bannedWords);
+	// filter tweets2
+	tweets2.printTweets();
+	tweets2.filterTweets(bannedWords);
+	tweets2.printFilteredTweets();
+	tweets2.countFrequentWords(5);
 
-	//// filter tweets2
-	//tweets2.printTweets();
-	//tweets2.filterTweets(bannedWords);
-	//tweets2.printFilteredTweets();
-	//bannedWordsSum += tweets2.countBannedWords(bannedWords);
+	// filter tweets3
+	tweets3.printTweets();
+	tweets3.filterTweets(bannedWords);
+	tweets3.printFilteredTweets();
+	tweets3.countFrequentWords(5);
 
-	//// filter tweets3
-	//tweets3.printTweets();
-	//tweets3.filterTweets(bannedWords);
-	//tweets3.printFilteredTweets();
-	//bannedWordsSum += tweets3.countBannedWords(bannedWords);
-
-	//// filter tweets4
-	//tweets4.printTweets();
-	//tweets4.filterTweets(bannedWords);
-	//tweets4.printFilteredTweets();
-	//bannedWordsSum += tweets4.countBannedWords(bannedWords);
-
-	//cout << "Total number of banned words: " << bannedWordsSum << endl;
+	// filter tweets4
+	tweets4.printTweets();
+	tweets4.filterTweets(bannedWords);
+	tweets4.printFilteredTweets();
+	tweets4.countFrequentWords(5);
 }

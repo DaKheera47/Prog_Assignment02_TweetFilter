@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include <algorithm>
 using namespace std;
 
 #ifndef TWEETSET
@@ -23,11 +25,14 @@ public:
 	void printFilteredTweets();
 	void printTweets();
 	int countBannedWords(vector<string> bannedWords);
+	vector<string> countFrequentWords(int n);
 
 private:
 	vector<string> m_tweets;
 	vector<string> m_filteredTweets;
+	vector<string> m_frequentWords;
 	int m_numBannedWords;
+	
 };
 
 #endif // !TWEETSET

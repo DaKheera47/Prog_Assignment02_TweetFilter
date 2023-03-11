@@ -89,3 +89,47 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 
 	return m_numBannedWords;
 }
+
+// Define a comparison function to compare two key-value pairs based on their values
+bool comparePairs(const pair<string, int>& pair1, const pair<string, int>& pair2) {
+	return pair1.second > pair2.second;
+}
+
+vector<string> TweetSet::countFrequentWords(int n)
+{
+	// reset count
+	m_frequentWords = {};
+
+	unordered_map<string, int> wordCounts;
+
+	// count words
+	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
+		// split tweet into words
+		vector<string> words = split(m_tweets[tweetIdx], " ");
+
+		// count the words
+		for (const auto& word : words) {
+			wordCounts[word]++;
+		}
+	}
+
+	vector<pair<string, int>> sortedCounts(wordCounts.begin(), wordCounts.end());
+	sort(sortedCounts.begin(), sortedCounts.end(), comparePairs);
+
+	cout << "Top " << n << " most common words: " << endl;
+
+	if (n > sortedCounts.size()) {
+		n = sortedCounts.size();
+	}
+	else if (n < 0) {
+		n = 0;
+	}
+
+	// print all words
+	for (int i = 0; i < n; i++) {
+		cout << sortedCounts[i].first << ": " << sortedCounts[i].second << endl;
+	}
+
+	return m_frequentWords;
+}
+
