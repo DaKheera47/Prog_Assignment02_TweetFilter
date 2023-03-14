@@ -11,7 +11,7 @@ using namespace std;
 class TweetSet
 {
 public:
-	TweetSet(vector<string> tweets);
+	TweetSet(vector<string> tweets, string name);
 	TweetSet();
 
 	// Define operator+ to combine two TweetSet objects
@@ -28,7 +28,12 @@ public:
 	int countBannedWords(vector<string> bannedWords);
 	vector<string> countFrequentWords(int n);
 
+	// set displayname
+	void setDisplayName(string name);
+	string getDisplayName();
+
 private:
+	string m_displayName;
 	vector<string> m_tweets;
 	vector<string> m_filteredTweets;
 	vector<string> m_frequentWords;

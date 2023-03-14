@@ -1,10 +1,12 @@
 #include "TweetSet.h"
 #include "Utilities.h"
 
-TweetSet::TweetSet(vector<string> tweets)
+TweetSet::TweetSet(vector<string> tweets, string name)
 {
 	m_tweets = tweets;
+	m_displayName = name;
 }
+
 TweetSet::TweetSet()
 {
 	m_tweets = {};
@@ -15,6 +17,7 @@ TweetSet& TweetSet::operator+(TweetSet& other)
 {
 	// Loop over tweets in other and add them to this TweetSet
 	addTweet(other.getTweets());
+	// return a copy
 	return *this;
 }
 
@@ -44,7 +47,7 @@ void TweetSet::filterTweets(vector<string> bannedWords)
 
 		for (int wordIdx = 0; wordIdx < words.size(); wordIdx++)
 		{
-			filteredTweet += filterWord(words[wordIdx], bannedWords) + " ";
+			filteredTweet += censorWord(words[wordIdx], bannedWords) + " ";
 		}
 
 		m_filteredTweets.push_back(filteredTweet);
@@ -55,8 +58,9 @@ void TweetSet::printTweets()
 {
 	cout << endl << "Tweets Loaded Initially:" << endl;
 	for (int i = 0; i < m_tweets.size(); i++) {
-		cout << m_tweets[i] << endl;
+		cout << i + 1 << ". " << m_tweets[i] << endl;
 	}
+	cout << endl;
 }
 
 void TweetSet::printFilteredTweets()
@@ -65,6 +69,7 @@ void TweetSet::printFilteredTweets()
 	for (int i = 0; i < m_filteredTweets.size(); i++) {
 		cout << m_filteredTweets[i] << endl;
 	}
+	cout << endl;
 }
 
 int TweetSet::countBannedWords(vector<string> bannedWords)
@@ -110,10 +115,9 @@ vector<string> TweetSet::countFrequentWords(int n)
 		}
 	}
 
+	// TODO write a custom sorting algorithm here
 	vector<pair<string, int>> sortedCounts(wordCounts.begin(), wordCounts.end());
 	sort(sortedCounts.begin(), sortedCounts.end(), comparePairs);
-
-	cout << "Top " << n << " most common words: " << endl;
 
 	if (n > sortedCounts.size()) {
 		n = sortedCounts.size();
@@ -121,6 +125,9 @@ vector<string> TweetSet::countFrequentWords(int n)
 	else if (n < 0) {
 		n = 0;
 	}
+
+	cout << endl;
+	cout << "Top " << n << " most common words: " << endl;
 
 	// print all words
 	for (int i = 0; i < n; i++) {
@@ -130,10 +137,23 @@ vector<string> TweetSet::countFrequentWords(int n)
 	return m_frequentWords;
 }
 
+void TweetSet::setDisplayName(string name)
+{
+	m_displayName = name;
+}
+
+string TweetSet::getDisplayName()
+{
+	return m_displayName;
+}
+
 void TweetSet::SentimentAnalysis(vector<string>& positiveWords, vector<string>& negativeWords)
 {
-	// read positive words
+
 	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
+		m_numPositiveWords = 0;
+		m_numNegativeWords = 0;
+
 		// split tweet into words
 		vector<string> words = split(m_tweets[tweetIdx], " ");
 
@@ -146,6 +166,8 @@ void TweetSet::SentimentAnalysis(vector<string>& positiveWords, vector<string>& 
 				m_numNegativeWords++;
 			}
 		}
+
+		cout << tweetIdx + 1 << ". " << m_tweets[tweetIdx] << endl;
 
 		cout << "Positive Words: " << m_numPositiveWords << endl;
 		cout << "Negative Words: " << m_numNegativeWords << endl;
@@ -161,6 +183,6 @@ void TweetSet::SentimentAnalysis(vector<string>& positiveWords, vector<string>& 
 			cout << "Overall Sentiment: Neutral" << endl;
 		}
 
-		cout << endl << endl;
+		cout << endl;
 	}
 }
