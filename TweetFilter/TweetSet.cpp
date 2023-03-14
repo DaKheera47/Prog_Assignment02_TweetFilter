@@ -1,12 +1,14 @@
 #include "TweetSet.h"
 #include "Utilities.h"
 
+// constructor for TweetSet
 TweetSet::TweetSet(vector<string> tweets, string name)
 {
 	m_tweets = tweets;
 	m_displayName = name;
 }
 
+// default constructor
 TweetSet::TweetSet()
 {
 	m_tweets = {};
@@ -21,11 +23,13 @@ TweetSet& TweetSet::operator+(TweetSet& other)
 	return *this;
 }
 
+// overload for adding one tweet, or adding multiple tweets
 void TweetSet::addTweet(string tweet)
 {
 	m_tweets.push_back(tweet);
 }
 
+// overload for adding one tweet, or adding multiple tweets
 void TweetSet::addTweet(vector<string> tweets)
 {
 	for (const auto& tweet : tweets) {
@@ -38,6 +42,7 @@ vector<string> TweetSet::getTweets()
 	return m_tweets;
 }
 
+// filter each word in each tweet by comparing to banned words
 void TweetSet::filterTweets(vector<string> bannedWords)
 {
 	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
@@ -54,6 +59,7 @@ void TweetSet::filterTweets(vector<string> bannedWords)
 	}
 }
 
+// print the tweets initially loaded from the file
 void TweetSet::printTweets()
 {
 	cout << endl << "Tweets Loaded Initially:" << endl;
@@ -63,6 +69,7 @@ void TweetSet::printTweets()
 	cout << endl;
 }
 
+// print filtered tweets
 void TweetSet::printFilteredTweets()
 {
 	cout << endl << "Filtered Tweets:" << endl;
@@ -72,6 +79,8 @@ void TweetSet::printFilteredTweets()
 	cout << endl;
 }
 
+// count the number of banned words in the tweets
+// return the number of banned words
 int TweetSet::countBannedWords(vector<string> bannedWords)
 {
 	// reset count
@@ -97,11 +106,14 @@ bool comparePairs(const pair<string, int>& pair1, const pair<string, int>& pair2
 	return pair1.second > pair2.second;
 }
 
+// count occurances of each word, and then sort by most frequent
+// returns n most frequent words
 vector<string> TweetSet::countFrequentWords(int n)
 {
 	// reset count
 	m_frequentWords = {};
 
+	// acts as a pair
 	unordered_map<string, int> wordCounts;
 
 	// count words
@@ -147,6 +159,8 @@ string TweetSet::getDisplayName()
 	return m_displayName;
 }
 
+// counts the number of positive and negative words
+// prints the results to the console
 void TweetSet::SentimentAnalysis(vector<string>& positiveWords, vector<string>& negativeWords)
 {
 
