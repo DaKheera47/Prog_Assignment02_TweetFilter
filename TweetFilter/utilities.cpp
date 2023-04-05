@@ -351,7 +351,28 @@ vector<string> read_file(string filename) {
 		lines.push_back(line);
 	}
 
+	// close the file
+	openedFile.close();
 	return lines;
+}
+
+void write_file(string filename, vector<string> lines)
+{
+	ofstream openedFile(filename);
+
+	if (!openedFile.is_open()) {
+		cerr << "Unable to open file: " << filename << endl;
+		return;
+	}
+
+	openedFile.clear();
+
+	for (int i = 0; i < lines.size(); i++) {
+		openedFile << lines[i] << endl;
+	}
+
+	// close the file
+	openedFile.close();
 }
 
 void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants constants)
@@ -392,6 +413,10 @@ void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants con
 			break;
 		case 5:
 			tweets.countFrequentWords(intInput("Enter the number of most frequent words you want to see"));
+			pauseAndClear();
+			break;		
+		case 6:
+			tweets.writeFilteredTweets("tweets1Filtered.txt");
 			pauseAndClear();
 			break;
 		default:

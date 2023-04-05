@@ -13,13 +13,15 @@ using namespace std;
 int main()
 {
 	// load tweets1
-	TweetSet tweets1 = { read_file("tweets1.txt"), "Tweets from file 1" };
-	// load tweets2
-	TweetSet tweets2 = { read_file("tweets2.txt"), "Tweets from file 2" };
-	// load tweets3
-	TweetSet tweets3 = { read_file("tweets3.txt"), "Tweets from file 3" };
-	// load tweets4
-	TweetSet tweets4 = { read_file("tweets4.txt"), "Tweets from file 4" };
+	TweetSet tweets1 = { read_file("tweets1.txt"), "Tweets from file 1", "tweets1.txt" };
+	// load tweets2														 	 ,
+	TweetSet tweets2 = { read_file("tweets2.txt"), "Tweets from file 2", "tweets2.txt" };
+	// load tweets3														 	 ,
+	TweetSet tweets3 = { read_file("tweets3.txt"), "Tweets from file 3", "tweets3.txt" };
+	// load tweets4														 	 ,
+	TweetSet tweets4 = { read_file("tweets4.txt"), "Tweets from file 4", "tweets4.txt" };
+
+	tweets1.getTweets();
 
 	// read file to a vector of strings
 	vector<string> bannedWords = read_file("banned.txt");
@@ -40,10 +42,10 @@ int main()
 
 	// options
 	vector<string> mainMenuOptions = {
-		"View options for file 1 tweets",
-		"View options for file 2 tweets",
-		"View options for file 3 tweets",
-		"View options for file 4 tweets",
+		"View options for tweets1.txt",
+		"View options for tweets2.txt",
+		"View options for tweets3.txt",
+		"View options for tweets4.txt",
 		"View options for all tweets",
 	};
 
@@ -53,8 +55,10 @@ int main()
 		"Show number of banned words",
 		"Sentiment Analysis",
 		"Show most frequent words",
+		"Output to file",
 	};
 
+	// this is the user selected option for the main menu options
 	int mainMenuSelection;
 	do {
 		mainMenuSelection = selectorPanelInput(mainMenuOptions, "Select an option");

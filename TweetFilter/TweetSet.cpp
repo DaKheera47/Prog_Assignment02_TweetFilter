@@ -2,10 +2,11 @@
 #include "Utilities.h"
 
 // constructor for TweetSet
-TweetSet::TweetSet(vector<string> tweets, string name)
+TweetSet::TweetSet(vector<string> tweets, string name, string filename)
 {
 	m_tweets = tweets;
 	m_displayName = name;
+	m_filename = filename;
 }
 
 // default constructor
@@ -149,6 +150,12 @@ vector<string> TweetSet::countFrequentWords(int n)
 	return m_frequentWords;
 }
 
+void TweetSet::writeFilteredTweets(string filename)
+{
+	filterTweets(m_tweets);
+	write_file(filename, m_filteredTweets);
+}
+
 void TweetSet::setDisplayName(string name)
 {
 	m_displayName = name;
@@ -159,11 +166,20 @@ string TweetSet::getDisplayName()
 	return m_displayName;
 }
 
+void TweetSet::setFileName(string name)
+{
+	m_filename = name;
+}
+
+string TweetSet::getFileName()
+{
+	return m_filename;
+}
+
 // counts the number of positive and negative words
 // prints the results to the console
 void TweetSet::SentimentAnalysis(vector<string>& positiveWords, vector<string>& negativeWords)
 {
-
 	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
 		m_numPositiveWords = 0;
 		m_numNegativeWords = 0;

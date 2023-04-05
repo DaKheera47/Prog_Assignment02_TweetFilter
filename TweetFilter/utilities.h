@@ -63,6 +63,9 @@ string stringInput(string prompt);
 // Reads the contents of a file and returns a vector of strings containing each line of the file
 vector<string> read_file(string filename);
 
+// Writes a vector of strings to a file, each string on a new line
+void write_file(string filename, vector<string> lines);
+
 // Displays a menu of options for interacting with a TweetSet object and handles user input accordingly
 void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants word_constants);
 
