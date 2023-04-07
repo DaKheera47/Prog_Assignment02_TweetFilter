@@ -385,7 +385,6 @@ void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants con
 		clear();
 
 		cout << "Actions for " << toLower(tweets.getDisplayName()) << endl << endl;
-
 		nestedMenuSelection = selectorPanelInput(menuOptions, "Select an option", "Back");
 
 		switch (nestedMenuSelection)
@@ -414,9 +413,9 @@ void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants con
 		case 5:
 			tweets.countFrequentWords(intInput("Enter the number of most frequent words you want to see"));
 			pauseAndClear();
-			break;		
+			break;
 		case 6:
-			tweets.writeFilteredTweets("tweets1Filtered.txt");
+			tweets.writeFilteredTweets();
 			pauseAndClear();
 			break;
 		default:
@@ -426,3 +425,44 @@ void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants con
 		}
 	}
 }
+
+//vector<string> readFile(string filename) {
+//	// read from csv, store in vector
+//	ifstream inFile(filename);
+//	if (!inFile) {
+//		cerr << "Error: Unable to open input file." << endl;
+//		return;
+//	}
+//
+//	vector<string> lines;
+//	string line;
+//
+//	while (getline(inFile, line)) {
+//		Player currPlayer;
+//		vector<string> tokens = split(line, ",");
+//		currPlayer.name = tokens[0];
+//		currPlayer.team = tokens[1];
+//		currPlayer.goalsScored = charToInt(tokens[2][0]);
+//		currPlayer.yellowCards = charToInt(tokens[3][0]);
+//		currPlayer.redCards = charToInt(tokens[4][0]);
+//		players.push_back(currPlayer);
+//	}
+//
+//	inFile.close();
+//}
+//
+//void writeData(const vector<Player>& players) {
+//	ofstream outFile(FILE_NAME);
+//
+//	if (!outFile) {
+//		cerr << "Error: Unable to open output file." << endl;
+//		return;
+//	}
+//
+//	for (const auto& player : players) {
+//		outFile << player.name << "," << player.team << "," << player.goalsScored << ","
+//			<< player.yellowCards << "," << player.redCards << endl;
+//	}
+//
+//	outFile.close();
+//}

@@ -1,12 +1,21 @@
 #include "TweetSet.h"
 #include "Utilities.h"
 
+void outputTweets(vector<string> tweets)
+{
+	for (int i = 0; i < tweets.size(); i++)
+	{
+		cout << i + 1 << ". " << tweets[i] << endl;
+	}
+}
+
 // constructor for TweetSet
-TweetSet::TweetSet(vector<string> tweets, string name, string filename)
+TweetSet::TweetSet(vector<string> tweets, string name, string sourceFilename, string destinationFilename)
 {
 	m_tweets = tweets;
 	m_displayName = name;
-	m_filename = filename;
+	m_sourceFilename = sourceFilename;
+	m_destinationFilename = destinationFilename;
 }
 
 // default constructor
@@ -64,9 +73,7 @@ void TweetSet::filterTweets(vector<string> bannedWords)
 void TweetSet::printTweets()
 {
 	cout << endl << "Tweets Loaded Initially:" << endl;
-	for (int i = 0; i < m_tweets.size(); i++) {
-		cout << i + 1 << ". " << m_tweets[i] << endl;
-	}
+	outputTweets(m_tweets);
 	cout << endl;
 }
 
@@ -74,9 +81,7 @@ void TweetSet::printTweets()
 void TweetSet::printFilteredTweets()
 {
 	cout << endl << "Filtered Tweets:" << endl;
-	for (int i = 0; i < m_filteredTweets.size(); i++) {
-		cout << m_filteredTweets[i] << endl;
-	}
+	outputTweets(m_filteredTweets);
 	cout << endl;
 }
 
@@ -150,10 +155,16 @@ vector<string> TweetSet::countFrequentWords(int n)
 	return m_frequentWords;
 }
 
-void TweetSet::writeFilteredTweets(string filename)
+void TweetSet::writeFilteredTweets()
 {
-	filterTweets(m_tweets);
-	write_file(filename, m_filteredTweets);
+	write_file(m_destinationFilename, m_filteredTweets);
+
+	// print the tweets
+	cout << endl << "Filtered Tweets Being Saved:" << endl;
+	outputTweets(m_filteredTweets);
+	cout << endl;
+
+	cout << "Filtered tweets written to " << m_destinationFilename << endl;
 }
 
 void TweetSet::setDisplayName(string name)
@@ -168,12 +179,12 @@ string TweetSet::getDisplayName()
 
 void TweetSet::setFileName(string name)
 {
-	m_filename = name;
+	m_sourceFilename = name;
 }
 
 string TweetSet::getFileName()
 {
-	return m_filename;
+	return m_sourceFilename;
 }
 
 // counts the number of positive and negative words

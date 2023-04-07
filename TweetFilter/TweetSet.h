@@ -11,7 +11,7 @@ using namespace std;
 class TweetSet
 {
 public:
-	TweetSet(vector<string> tweets, string name, string filename);
+	TweetSet(vector<string> tweets, string name, string filename, string destinationFilename);
 	TweetSet();
 
 	// Define operator+ to combine two TweetSet objects
@@ -27,7 +27,7 @@ public:
 	void SentimentAnalysis(vector<string>& positiveWords, vector<string>& negativeWords);
 	int countBannedWords(vector<string> bannedWords);
 	vector<string> countFrequentWords(int n);
-	void writeFilteredTweets(string filename);
+	void writeFilteredTweets();
 
 	// set displayname
 	void setDisplayName(string name);
@@ -38,11 +38,14 @@ public:
 	string getFileName();
 
 private:
-	string m_displayName;
-	string m_filename;
 	vector<string> m_tweets;
 	vector<string> m_filteredTweets;
 	vector<string> m_frequentWords;
+
+	string m_displayName;
+	string m_sourceFilename;
+	string m_destinationFilename;
+
 	int m_numBannedWords;
 	int m_numPositiveWords;
 	int m_numNegativeWords;
