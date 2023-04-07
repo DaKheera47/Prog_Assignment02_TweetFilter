@@ -17,6 +17,9 @@ vector<string> split(const string& str, const string& delimiter);
 // Converts a string to lowercase
 string toLower(string str);
 
+// Removes punctuation from a string
+string removePunctuation(string str);
+
 // Filters a word by comparing it against a vector of banned strings
 // Returns the original word if it is not banned, otherwise returns a censored version of the word
 string censorWord(string word, vector<string>& bannedWords);
@@ -68,5 +71,8 @@ void write_file(string filename, vector<string> lines);
 
 // Displays a menu of options for interacting with a TweetSet object and handles user input accordingly
 void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants word_constants);
+
+// count the number of unique words in a vector of tweets
+vector<pair<string, int>> countUniqueWords(vector<string> tweets);
 
 #endif // !UTILITIES

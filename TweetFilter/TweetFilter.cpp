@@ -53,7 +53,7 @@ int main()
 	vector<string> nestedMenuOptions = {
 		"Show tweets before filtering",
 		"Show tweets after filtering",
-		"Show number of banned words",
+		"Count banned words",
 		"Sentiment Analysis",
 		"Show most frequent words",
 		"Output to file",

@@ -31,6 +31,16 @@ string toLower(string str) {
 	return str;
 }
 
+string removePunctuation(string str) {
+	string result = "";
+	for (int i = 0; i < str.length(); i++) {
+		if (!ispunct(str[i])) {
+			result += str[i];
+		}
+	}
+	return result;
+}
+
 bool isWordInVector(string word, vector<string>& searchVector)
 {
 	// make word lowercase
@@ -403,7 +413,7 @@ void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants con
 			pauseAndClear();
 			break;
 		case 3:
-			cout << "Number of banned words: " << tweets.countBannedWords(constants.bannedWords) << endl;
+			tweets.countBannedWords(constants.bannedWords);
 			pauseAndClear();
 			break;
 		case 4:
@@ -424,6 +434,32 @@ void handleTweetMenu(TweetSet tweets, vector<string> menuOptions, SConstants con
 			return;
 		}
 	}
+}
+
+// Define a comparison function to compare two key-value pairs based on their values
+bool comparePairs(const pair<string, int>& pair1, const pair<string, int>& pair2) {
+	return pair1.second > pair2.second;
+}
+
+vector<pair<string, int>> countUniqueWords(vector<string> tweets)
+{
+	// acts as a pair
+	unordered_map<string, int> wordCounts;
+
+	// count words
+	for (int tweetIdx = 0; tweetIdx < tweets.size(); tweetIdx++) {
+		// split tweet into words
+		vector<string> words = split(tweets[tweetIdx], " ");
+		// count the words
+		for (const auto& word : words) {
+			wordCounts[word]++;
+		}
+	}
+
+	vector<pair<string, int>> sortedCounts(wordCounts.begin(), wordCounts.end());
+	sort(sortedCounts.begin(), sortedCounts.end(), comparePairs);
+
+	return sortedCounts;
 }
 
 //vector<string> readFile(string filename) {

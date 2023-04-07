@@ -92,6 +92,9 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 	// reset count
 	m_numBannedWords = 0;
 
+	vector<string> bannedWordsInTweets;
+
+	// make a list of all bannedWords in the tweets
 	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
 		// split tweet into words
 		vector<string> words = split(m_tweets[tweetIdx], " ");
@@ -99,17 +102,35 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 		for (int wordIdx = 0; wordIdx < words.size(); wordIdx++)
 		{
 			if (isWordInVector(words[wordIdx], bannedWords)) {
+				bannedWordsInTweets.push_back(words[wordIdx]);
 				m_numBannedWords++;
 			}
 		}
 	}
 
-	return m_numBannedWords;
-}
+	// count occurances of each word
+	vector<pair<string, int>> sortedCounts = countUniqueWords(bannedWordsInTweets);
 
-// Define a comparison function to compare two key-value pairs based on their values
-bool comparePairs(const pair<string, int>& pair1, const pair<string, int>& pair2) {
-	return pair1.second > pair2.second;
+	cout << endl;
+	cout << "Here's how often each banned word occured: " << endl;
+
+	// print all words
+	for (int i = 0; i < sortedCounts.size(); i++) {
+		string word = sortedCounts[i].first;
+
+		// make lowercase
+		word = toLower(word);
+
+		// remove punctuation
+		word = removePunctuation(word);
+
+		cout << word << ": " << sortedCounts[i].second << endl;
+	}
+
+	cout << endl;
+	cout << "Total number of banned words: " << m_numBannedWords << endl;
+
+	return m_numBannedWords;
 }
 
 // count occurances of each word, and then sort by most frequent
@@ -119,24 +140,10 @@ vector<string> TweetSet::countFrequentWords(int n)
 	// reset count
 	m_frequentWords = {};
 
-	// acts as a pair
-	unordered_map<string, int> wordCounts;
+	// count occurances of each word
+	vector<pair<string, int>> sortedCounts = countUniqueWords(m_tweets);
 
-	// count words
-	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
-		// split tweet into words
-		vector<string> words = split(m_tweets[tweetIdx], " ");
-
-		// count the words
-		for (const auto& word : words) {
-			wordCounts[word]++;
-		}
-	}
-
-	// TODO write a custom sorting algorithm here
-	vector<pair<string, int>> sortedCounts(wordCounts.begin(), wordCounts.end());
-	sort(sortedCounts.begin(), sortedCounts.end(), comparePairs);
-
+	// make sure n is within bounds
 	if (n > sortedCounts.size()) {
 		n = sortedCounts.size();
 	}
