@@ -32,22 +32,12 @@ int main()
 		negativeWords
 	};
 
-	//TODO All tweets should be combined without messing up the original TweetSet objects
-	//TweetSet allTweets;
-	//allTweets = tweets1;
-	//allTweets = tweets1 + allTweets;
-	//allTweets = tweets2 + allTweets;
-	//allTweets = tweets3 + allTweets;
-	//allTweets = tweets4 + allTweets;
-	//allTweets.setDisplayName("All Tweets");
-
 	// options
 	vector<string> mainMenuOptions = {
 		"View options for tweets1.txt",
 		"View options for tweets2.txt",
 		"View options for tweets3.txt",
 		"View options for tweets4.txt",
-		"View options for all tweets",
 	};
 
 	vector<string> nestedMenuOptions = {
@@ -77,9 +67,6 @@ int main()
 			break;
 		case 4:
 			handleTweetMenu(tweets4, nestedMenuOptions, word_constants);
-			break;
-		case 5:
-			//handleTweetMenu(allTweets, nestedMenuOptions, word_constants);
 			break;
 		default:
 			break;
