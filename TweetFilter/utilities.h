@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 #include "Constants.h"
 #include "TweetSet.h"
 using namespace std;

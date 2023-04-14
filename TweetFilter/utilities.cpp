@@ -41,22 +41,31 @@ string removePunctuation(string str) {
 	return result;
 }
 
-bool isWordInVector(string word, vector<string>& searchVector)
-{
+bool isWordInVector(string word, vector<string>& searchVector) {
 	// make word lowercase
 	word = toLower(word);
 
-	for (int i = 0; i < searchVector.size(); i++)
-	{
-		// make banned word lowercase
-		string bannedWord = toLower(searchVector[i]);
-		bool isBanned = word.find(bannedWord) != string::npos;
+	sort(searchVector.begin(), searchVector.end());
 
-		if (word.find(bannedWord) != string::npos)
-		{
+	int left = 0;
+	int right = searchVector.size() - 1;
+
+	while (left <= right) {
+		int mid = left + (right - left) / 2;
+		string midWord = toLower(searchVector[mid]);
+
+		if (midWord == word) {
 			return true;
 		}
+
+		if (midWord < word) {
+			left = mid + 1;
+		}
+		else {
+			right = mid - 1;
+		}
 	}
+
 	return false;
 }
 
@@ -461,44 +470,3 @@ vector<pair<string, int>> countUniqueWords(vector<string> tweets)
 
 	return sortedCounts;
 }
-
-//vector<string> readFile(string filename) {
-//	// read from csv, store in vector
-//	ifstream inFile(filename);
-//	if (!inFile) {
-//		cerr << "Error: Unable to open input file." << endl;
-//		return;
-//	}
-//
-//	vector<string> lines;
-//	string line;
-//
-//	while (getline(inFile, line)) {
-//		Player currPlayer;
-//		vector<string> tokens = split(line, ",");
-//		currPlayer.name = tokens[0];
-//		currPlayer.team = tokens[1];
-//		currPlayer.goalsScored = charToInt(tokens[2][0]);
-//		currPlayer.yellowCards = charToInt(tokens[3][0]);
-//		currPlayer.redCards = charToInt(tokens[4][0]);
-//		players.push_back(currPlayer);
-//	}
-//
-//	inFile.close();
-//}
-//
-//void writeData(const vector<Player>& players) {
-//	ofstream outFile(FILE_NAME);
-//
-//	if (!outFile) {
-//		cerr << "Error: Unable to open output file." << endl;
-//		return;
-//	}
-//
-//	for (const auto& player : players) {
-//		outFile << player.name << "," << player.team << "," << player.goalsScored << ","
-//			<< player.yellowCards << "," << player.redCards << endl;
-//	}
-//
-//	outFile.close();
-//}

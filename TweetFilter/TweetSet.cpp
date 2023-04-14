@@ -1,5 +1,6 @@
 #include "TweetSet.h"
 #include "Utilities.h"
+#include <map>
 
 void outputTweets(vector<string> tweets)
 {
@@ -92,7 +93,12 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 	// reset count
 	m_numBannedWords = 0;
 
-	vector<string> bannedWordsInTweets;
+	map<string, int> bannedWordsCount;
+
+	// Initialize the count of each banned word to 0
+	for (const auto& word : bannedWords) {
+		bannedWordsCount[word] = 0;
+	}
 
 	// make a list of all bannedWords in the tweets
 	for (int tweetIdx = 0; tweetIdx < m_tweets.size(); tweetIdx++) {
@@ -102,21 +108,18 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 		for (int wordIdx = 0; wordIdx < words.size(); wordIdx++)
 		{
 			if (isWordInVector(words[wordIdx], bannedWords)) {
-				bannedWordsInTweets.push_back(words[wordIdx]);
+				bannedWordsCount[words[wordIdx]]++;
 				m_numBannedWords++;
 			}
 		}
 	}
 
-	// count occurances of each word
-	vector<pair<string, int>> sortedCounts = countUniqueWords(bannedWordsInTweets);
-
 	cout << endl;
-	cout << "Here's how often each banned word occured: " << endl;
+	cout << "Here's how often each banned word occurred: " << endl;
 
 	// print all words
-	for (int i = 0; i < sortedCounts.size(); i++) {
-		string word = sortedCounts[i].first;
+	for (const auto& wordCountPair : bannedWordsCount) {
+		string word = wordCountPair.first;
 
 		// make lowercase
 		word = toLower(word);
@@ -124,7 +127,7 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 		// remove punctuation
 		word = removePunctuation(word);
 
-		cout << word << ": " << sortedCounts[i].second << endl;
+		cout << word << ": " << wordCountPair.second << endl;
 	}
 
 	cout << endl;
