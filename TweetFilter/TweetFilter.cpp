@@ -1,5 +1,7 @@
-// TweetFilter.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+/*
+ * Author: Shaheer Sarfaraz
+ * Student ID: G21011528
+ */
 
 #include <iostream>
 #include <fstream>
