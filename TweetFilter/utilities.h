@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include <map>
 #include "Constants.h"
 #include "TweetSet.h"
 using namespace std;

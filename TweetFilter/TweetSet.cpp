@@ -1,6 +1,5 @@
 #include "TweetSet.h"
 #include "Utilities.h"
-#include <map>
 
 void outputTweets(vector<string> tweets)
 {
@@ -126,6 +125,12 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 	cout << endl;
 	cout << "Here's how often each banned word occurred: " << endl;
 
+	// Set up the table headers
+	int columnWidth1 = 20;
+	int columnWidth2 = 10;
+	cout << left << setw(columnWidth1) << "Banned Word" << setw(columnWidth2) << "Count" << endl;
+	cout << string(columnWidth1 + columnWidth2, '-') << endl;
+
 	// print all words
 	for (const auto& wordCountPair : sortedCounts) {
 		string word = wordCountPair.first;
@@ -136,7 +141,7 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 		// remove punctuation
 		word = removePunctuation(word);
 
-		cout << word << ": " << wordCountPair.second << endl;
+		cout << left << setw(columnWidth1) << word << setw(columnWidth2) << wordCountPair.second << endl;
 	}
 
 	cout << endl;
@@ -152,7 +157,7 @@ vector<string> TweetSet::countFrequentWords(int n)
 	// reset count
 	m_frequentWords = {};
 
-	// count occurances of each word
+	// count occurrences of each word
 	vector<pair<string, int>> sortedCounts = countUniqueWords(m_tweets);
 
 	// make sure n is within bounds
@@ -166,9 +171,16 @@ vector<string> TweetSet::countFrequentWords(int n)
 	cout << endl;
 	cout << "Top " << n << " most common words: " << endl;
 
+	// Set up the table headers
+	int columnWidth1 = 20;
+	int columnWidth2 = 10;
+	cout << left << setw(columnWidth1) << "Word" << setw(columnWidth2) << "Count" << endl;
+	cout << string(columnWidth1 + columnWidth2, '-') << endl;
+
 	// print all words
 	for (int i = 0; i < n; i++) {
-		cout << sortedCounts[i].first << ": " << sortedCounts[i].second << endl;
+		string word = sortedCounts[i].first;
+		cout << left << setw(columnWidth1) << word << setw(columnWidth2) << sortedCounts[i].second << endl;
 	}
 
 	return m_frequentWords;
