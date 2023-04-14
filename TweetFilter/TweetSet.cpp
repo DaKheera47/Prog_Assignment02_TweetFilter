@@ -114,11 +114,20 @@ int TweetSet::countBannedWords(vector<string> bannedWords)
 		}
 	}
 
+	// Transfer the counts from the map to a vector
+	vector<pair<string, int>> sortedCounts(bannedWordsCount.begin(), bannedWordsCount.end());
+
+	// Sort the vector based on the counts
+	sort(sortedCounts.begin(), sortedCounts.end(),
+		[](const pair<string, int>& a, const pair<string, int>& b) {
+			return a.second > b.second;
+		});
+
 	cout << endl;
 	cout << "Here's how often each banned word occurred: " << endl;
 
 	// print all words
-	for (const auto& wordCountPair : bannedWordsCount) {
+	for (const auto& wordCountPair : sortedCounts) {
 		string word = wordCountPair.first;
 
 		// make lowercase
@@ -167,12 +176,18 @@ vector<string> TweetSet::countFrequentWords(int n)
 
 void TweetSet::writeFilteredTweets()
 {
-	write_file(m_destinationFilename, m_filteredTweets);
+	// if the m_filteredTweets is empty, then ask the user to filter the tweets first
+	if (m_filteredTweets.empty()) {
+		cout << "Please filter the tweets first by choosing the second option." << endl;
+		return;
+	}
 
 	// print the tweets
 	cout << endl << "Filtered Tweets Being Saved:" << endl;
 	outputTweets(m_filteredTweets);
 	cout << endl;
+
+	write_file(m_destinationFilename, m_filteredTweets);
 
 	cout << "Filtered tweets written to " << m_destinationFilename << endl;
 }
